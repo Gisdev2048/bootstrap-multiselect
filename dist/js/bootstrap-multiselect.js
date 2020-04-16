@@ -139,13 +139,13 @@
                 }
                 else {
                     var selected = '';
-                    var delimiter = this.delimiterText;
+                    var delimiter = '<br>';
 
                     options.each(function () {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
                         selected += label + delimiter;
                     });
-                    return selected.substr(0, selected.length - this.delimiterText.length);
+                    return selected.substr(0, selected.length - delimiter.length);
                 }
             },
             checkboxName: function(option) {
@@ -335,6 +335,7 @@
 
             this.$button.tooltip({
                 html: true,
+                placement: 'auto'
             });
 
             // Keep the tab index from the select.
@@ -1522,10 +1523,10 @@
 
             // Now update the title attribute of the button.
             const buttonTitle = this.options.buttonTitle(options, this.$select);
-            // $('.multiselect', this.$container).attr('title', buttonTitle);
-            this.$button.tooltip({
-                title: buttonTitle
-            });
+            $(".multiselect", this.$container).attr(
+              "data-original-title",
+              "<div class=\"text-left\">" + buttonTitle + "</div>"
+            );
         },
 
         /**
