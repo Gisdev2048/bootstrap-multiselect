@@ -491,6 +491,11 @@
                 });
             }
 
+            this.$button.tooltip({
+                html: true,
+                title: 'data-title',
+            });
+
             // Keep the tab index from the select.
             var tabindex = this.$select.attr('tabindex');
             if (tabindex) {
@@ -1675,7 +1680,8 @@
             }
 
             // Now update the title attribute of the button.
-            $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            const buttonTitle = this.options.buttonTitle(options, this.$select);
+            $('.multiselect', this.$container).attr('data-title', buttonTitle);
         },
 
         /**
