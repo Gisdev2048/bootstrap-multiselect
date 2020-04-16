@@ -335,7 +335,6 @@
 
             this.$button.tooltip({
                 html: true,
-                title: 'data-title',
             });
 
             // Keep the tab index from the select.
@@ -1523,7 +1522,10 @@
 
             // Now update the title attribute of the button.
             const buttonTitle = this.options.buttonTitle(options, this.$select);
-            $('.multiselect', this.$container).attr('data-title', buttonTitle);
+            // $('.multiselect', this.$container).attr('title', buttonTitle);
+            this.$button.tooltip({
+                title: buttonTitle
+            });
         },
 
         /**
