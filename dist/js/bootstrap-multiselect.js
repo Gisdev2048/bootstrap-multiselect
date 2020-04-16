@@ -111,19 +111,25 @@
                         return this.allSelectedText;
                     }
                 }
-                else if (this.numberDisplayed != 0 && options.length > this.numberDisplayed) {
-                    return options.length + ' ' + this.nSelectedText;
-                }
-                else {
-                    var selected = '';
+                else if (this.numberDisplayed === 0 ||
+                    (this.numberDisplayed != 0 && options.length > this.numberDisplayed)) {
+                    return options.length + " " + this.nSelectedText;
+                } else {
+                    var selected = "";
                     var delimiter = this.delimiterText;
 
-                    options.each(function() {
-                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
+                    options.each(function () {
+                        var label =
+                        $(this).attr("label") !== undefined
+                            ? $(this).attr("label")
+                            : $(this).text();
                         selected += label + delimiter;
                     });
 
-                    return selected.substr(0, selected.length - this.delimiterText.length);
+                    return selected.substr(
+                        0,
+                        selected.length - this.delimiterText.length
+                    );
                 }
             },
             /**
