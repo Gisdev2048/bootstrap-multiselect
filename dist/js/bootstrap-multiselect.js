@@ -340,9 +340,10 @@
             }
 
             this.$button.tooltip({
-                html: true,
-                placement: 'auto',
-                container: 'body'
+              container: 'body',
+              html: true,
+              placement: 'auto',
+              trigger: 'hover',
             });
 
             // Keep the tab index from the select.
