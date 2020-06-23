@@ -1045,9 +1045,11 @@
 
                                         // Toggle current element (group or group item) according to showElement boolean.
                                         if(!showElement){
+                                          $(element).css('display', 'none');
                                           $(element).addClass('multiselect-filter-hidden');
                                         }
                                         if(showElement){
+                                          $(element).css('display', 'block');
                                           $(element).removeClass('multiselect-filter-hidden');
                                         }
 
