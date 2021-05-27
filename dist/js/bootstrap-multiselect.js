@@ -684,20 +684,15 @@
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
                 $("li.multiselect-group .caret-container", this.$ul).on("click", $.proxy(function(event) {
                     var $li = $(event.target).closest('li');
-                    var $caretContainer = $(event.currentTarget);
                     var $inputs = $li.nextUntil("li.multiselect-group")
                             .not('.multiselect-filter-hidden');
 
-                    var visible = true;
-                    $inputs.each(function() {
-                        visible = visible && !$(this).hasClass('multiselect-collapsible-hidden');
-                    });
+                    var visible = !$li.hasClass("multiselect-group-collapsed");
 
-                    $caretContainer.toggleClass(
+                    $li.toggleClass(
                       "multiselect-group-collapsed",
                       visible
                     );
-
 
                     if (visible) {
                         $inputs.hide()
@@ -729,9 +724,23 @@
             var checkbox = '<input type="' + inputType + '" value="' + value + (selected ? '" checked>' : '">');
             var label = '<label class="' + inputType + '">' + checkbox + " " + title + "</label>";
 
-            var liClass = (selected && this.options.selectedClass ? ' class="' + this.options.selectedClass + '"' : '');
-            var li = '<li' + liClass + '><a tabindex="0">' + label + '</a></li>';
+            var liClass = [];
+            if (selected && this.options.selectedClass) {
+              liClass.push(this.options.selectedClass);
+            }
 
+            if (this.options.collapseOptGroupsByDefault &&
+                this.$select.find("optgroup").length > 1 &&
+                $(element).parent().prop("tagName").toLowerCase() === "optgroup") {
+              liClass.push("multiselect-collapsible-hidden");
+            }
+
+            var li =
+              '<li class="' +
+              liClass.join(" ") +
+              '"><a tabindex="0">' +
+              label +
+              "</a></li>";
             // TODO: Implement: element.disabled check
 
             return li;
@@ -863,6 +872,13 @@
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
                 $('a', $li).append('<span class="caret-container"><b class="caret"></b></span>');
+            }
+            if (
+              this.options.enableCollapsibleOptGroups &&
+              this.options.collapseOptGroupsByDefault &&
+              this.$select.find("optgroup").length > 1
+            ) {
+              $li.addClass("multiselect-group-collapsed");
             }
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
